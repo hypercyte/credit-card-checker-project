@@ -24,11 +24,32 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 
 // Add your functions below:
+const validateCred = arr => {
 
+    let sum = 0;
 
+    // This will be used for checking every other element regardless of array length.
+    const every_other = arr.length%2;
 
+    // Loop through every element in array.
+    for (let i = arr.length - 1; i >= 0; i-- ) {
 
+        // Excluding checking digit (last element).
+        if (i === arr.length - 1) {
+            sum += arr[i];
+            continue;
+        }
 
+        let cur = arr[i]
 
-
-
+        // Checking every other digit. If more than 10, - 9 from result.
+        if (i % 2 === every_other) {
+            cur *= 2;
+            if (cur >= 10) cur -= 9;
+        }
+        
+        sum += cur;
+    }
+    
+    return (sum % 10 === 0 ? true : false);
+}
