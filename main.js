@@ -29,7 +29,7 @@ const validateCred = arr => {
     let sum = 0;
 
     // This will be used for checking every other element regardless of array length.
-    const every_other = arr.length%2;
+    const every_other = arr.length % 2;
 
     // Loop through every element in array.
     for (let i = arr.length - 1; i >= 0; i-- ) {
