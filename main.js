@@ -22,8 +22,16 @@ const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3]
 // An array of all the arrays above
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5]
 
+// Custom credit card number input.
+const custom = "5123034878794809";
 
-// Add your functions below:
+// Parse the custom number into a readable array.
+const parsed = custom.split('').map(n => {
+    return parseInt(n, 10);
+})
+// ^ custom.split splits up the string into an array similar to the ones at the start of the file.
+// ^ then the .map takes all values of the array created by .split, and parses them into ints into a new array of ints, identical to the ones at the start.
+
 const validateCred = arr => {
 
     let sum = 0;
@@ -52,4 +60,60 @@ const validateCred = arr => {
     }
     
     return (sum % 10 === 0 ? true : false);
+}
+
+const findInvalidCards = arr => {
+    const new_arr = []; // Invalid card array
+
+    // Loop through every card...
+    for (var a of arr) {
+        // If card is not valid...
+        if (!validateCred(a)) {
+            // Add card number to invalid card array.
+            new_arr.push(a);
+        }
+    }
+
+    return new_arr;
+}
+
+const i_cards = findInvalidCards(batch);
+
+const idInvalidCardCompanies = arr => {
+    const new_arr = [];
+
+    // Loop through elements in the invalid card array
+    arr.forEach(card => {
+        switch(card[0]){
+            case 3:
+                console.log("Company match found: Amex")
+                if (!new_arr.includes("Amex (American Express)")) {
+                    new_arr.push("Amex (American Express)");
+                }
+                break;
+            case 4:
+                console.log("Company match found: Visa.")
+                if (!new_arr.includes("Visa")) {
+                    new_arr.push("Visa");
+                }
+                break;
+            case 5:
+                console.log("Company match found: Mastercard.")
+                if (!new_arr.includes("Mastercard")) {
+                    new_arr.push("Mastercard");
+                }
+                break;
+            case 6:
+                console.log("Company match found: Discover.")
+                if (!new_arr.includes("Discover")) {
+                    new_arr.push("Discover");
+                }
+                break;
+            default:
+                console.log("Company match not found.")
+                break;
+        }
+    });
+
+    return new_arr;
 }
